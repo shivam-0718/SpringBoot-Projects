@@ -22,32 +22,34 @@ A Spring Boot REST API for managing customers with basic CRUD operations. It use
 ### Technologies Used
 
 **Backend Frameworks**
-- Spring Boot
-- Spring Data JPA
+- ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+- ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+- ![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white)
+- ![Lombok](https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge)
 
 **Programming Language**
-- Java
+- ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 
 **Database**
-- MySQL
+- ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
 **Build Tool**
-- Maven
+- ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
 
 **Version Control System**
-- Git
-- GitHub
+- ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+- ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 **API Testing Tool**
-- Postman
+- ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
 ### Dependencies Used
 | Dependency | Dependency |
 |---|---|
-| spring-boot-starter-webmvc | spring-boot-starter-validation |
-| spring-boot-starter-data-jpa | lombok |
-| mysql-connector-j | spring-boot-devtools |
-| spring-boot-starter-webmvc-test | spring-boot-starter-data-jpa-test |
+| - spring-boot-starter-webmvc | - spring-boot-starter-validation |
+| - spring-boot-starter-data-jpa | - lombok |
+| - mysql-connector-j | - spring-boot-devtools |
+| - spring-boot-starter-webmvc-test | - spring-boot-starter-data-jpa-test |
 
 **Versions:** JDK 21 · Spring Boot 4.1.1
 
