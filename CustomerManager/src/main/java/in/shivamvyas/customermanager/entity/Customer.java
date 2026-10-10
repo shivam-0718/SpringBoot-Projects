@@ -19,14 +19,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Customer ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Customer_ID")
     private Long id;
 
-    @Column(name = "First Name")
+    @Column(name = "First_Name")
     private String firstName;
 
-    @Column(name = "Last Name")
+    @Column(name = "Last_Name")
     private String lastName;
 
     @Column(name = "City")
