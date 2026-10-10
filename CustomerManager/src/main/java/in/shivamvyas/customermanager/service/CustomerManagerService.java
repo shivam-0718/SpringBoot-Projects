@@ -1,14 +1,14 @@
 package in.shivamvyas.customermanager.service;
 
+import in.shivamvyas.customermanager.dto.CustomerRequest;
 import in.shivamvyas.customermanager.dto.CustomerResponse;
-import in.shivamvyas.customermanager.entity.Customer;
 import java.util.List;
 
 public interface CustomerManagerService {
-    CustomerResponse registerCustomer(Customer customer);
+    CustomerResponse registerCustomer(CustomerRequest request);
     List<CustomerResponse> getAllCustomers();
     CustomerResponse fetchCustomer(Long id);
-    CustomerResponse updateCustomer(Customer customer);
-    String deleteCustomer(Customer customer);
+    CustomerResponse updateCustomer(Long id, CustomerRequest request);
+    String deleteCustomer(Long id);
 
 }
