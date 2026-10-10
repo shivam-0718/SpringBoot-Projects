@@ -7,8 +7,8 @@ import java.util.List;
 public interface CustomerManagerService {
     String registerCustomer(Customer customer);
     List<Customer> getAllCustomers();
+    Customer fetchCustomer(Long id);
     String updateCustomer(Customer customer);
-    String updateCustomer(Customer... properties);
-    void deleteCustomer(Customer customer);
+    String deleteCustomer(Customer customer);
 
 }
