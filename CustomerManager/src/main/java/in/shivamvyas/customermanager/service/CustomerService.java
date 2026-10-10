@@ -54,7 +54,10 @@ public class CustomerService implements CustomerManagerService{
     public CustomerResponse updateCustomer(Long id, CustomerRequest request) {
         Optional<Customer> optional = customerRepo.findById(id);
         if(optional.isPresent()) {
-            Customer customer = toEntity(request);
+            Customer customer = optional.get();
+            customer.setFirstName(request.getFirstName());
+            customer.setLastName(request.getLastName());
+            customer.setCity(request.getCity());
             Customer updatedCustomer = customerRepo.save(customer);
             return toResponse(updatedCustomer);
         }
