@@ -30,7 +30,7 @@ public class Vaccine {
     @Column(name = "Vaccine_Company")
     private String vaccineCompany;
 
-    @Column(name = "Cost_INR")
+    @Column(name = "Cost_INR", nullable = false, precision = 12, scale = 2)
     private BigDecimal cost;
 
     @Column(name = "Available_Doses")
