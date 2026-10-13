@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/vaccines")
 public class VaccineManagerController {
-
     private VaccineManagerService service;
 
     @Autowired
@@ -21,27 +20,34 @@ public class VaccineManagerController {
         this.service = service;
     }
 
-    @PostMapping("/vaccines")
+    // endpoint for registering a Vaccine
+    @PostMapping
     public ResponseEntity<VaccineResponse> registerVaccine(@Valid @RequestBody VaccineRequest request) {
         VaccineResponse response = service.registerVaccine(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/vaccines")
+    @GetMapping
     public ResponseEntity<List<VaccineResponse>> fetchVaccines() {
         List<VaccineResponse> vaccinesList = service.fetchVaccines();
         return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
     }
 
-    @PutMapping("/vaccines/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<VaccineResponse> updateVaccineDetails(@PathVariable Long id, @Valid @RequestBody VaccineRequest request) {
         VaccineResponse response = service.updateVaccineDetails(id, request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/vaccines/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVaccineById(@PathVariable Long id) {
         String response = service.deleteVaccine(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VaccineResponse> getVaccineById(@PathVariable Long id) {
+        VaccineResponse response = service.getVaccineById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
