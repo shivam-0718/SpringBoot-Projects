@@ -8,6 +8,7 @@ import in.shivamvyas.vaccinemanager.exception.VaccineNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,73 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
             return entityToResponse(fetchedVaccine);
         }
         throw new VaccineNotFoundException("Vaccine with id " + id + " is not available. Try again with correct id.");
+    }
+
+    @Override
+    @Transactional
+    public List<VaccineResponse> registerVaccines(List<VaccineRequest> vaccineRequestList) {
+        List<VaccineResponse> registeredVaccines = new ArrayList<>();
+
+        for(VaccineRequest request : vaccineRequestList) {
+            // convert request to entity
+            Vaccine entity = requestToEntity(request);
+
+            // save into the database
+            Vaccine registeredVaccine = vaccineRepo.save(entity);
+
+            // extract the response DTO from the registered vaccine
+            registeredVaccines.add(entityToResponse(registeredVaccine));
+        }
+
+        return registeredVaccines;
+    }
+
+    @Override
+    public List<VaccineResponse> searchByVaccineName(String vaccineName) {
+        List<Vaccine> list = vaccineRepo.findByVaccineNameContainingIgnoreCase(vaccineName);
+        List<VaccineResponse> fetchedVaccines = new ArrayList<>();
+
+        for (Vaccine v : list) {
+            fetchedVaccines.add(entityToResponse(v));
+        }
+
+        return fetchedVaccines;
+    }
+
+    @Override
+    public List<VaccineResponse> searchByVaccineCompany(String vaccineCompany) {
+        List<Vaccine> list = vaccineRepo.findByVaccineCompanyContainingIgnoreCase(vaccineCompany);
+        List<VaccineResponse> fetchedVaccines = new ArrayList<>();
+
+        for (Vaccine v : list) {
+            fetchedVaccines.add(entityToResponse(v));
+        }
+
+        return fetchedVaccines;
+    }
+
+    @Override
+    public List<VaccineResponse> searchByCostBetween(BigDecimal minCost, BigDecimal maxCost) {
+        List<Vaccine> list = vaccineRepo.findByCostBetween(minCost, maxCost);
+        List<VaccineResponse> fetchedVaccines = new ArrayList<>();
+
+        for (Vaccine v : list) {
+            fetchedVaccines.add(entityToResponse(v));
+        }
+
+        return fetchedVaccines;
+    }
+
+    @Override
+    public List<VaccineResponse> searchByAvailableDosesBetween(int minDoses, int maxDoses) {
+        List<Vaccine> list = vaccineRepo.findByAvailableDosesBetween(minDoses, maxDoses);
+        List<VaccineResponse> fetchedVaccines = new ArrayList<>();
+
+        for (Vaccine v : list) {
+            fetchedVaccines.add(entityToResponse(v));
+        }
+
+        return fetchedVaccines;
     }
 
     /**
