@@ -21,7 +21,7 @@ public class VaccineManagerController {
         this.service = service;
     }
 
-    @PostMapping("/vaccine")
+    @PostMapping("/vaccines")
     public ResponseEntity<VaccineResponse> registerVaccine(@Valid @RequestBody VaccineRequest request) {
         VaccineResponse response = service.registerVaccine(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -42,7 +42,7 @@ public class VaccineManagerController {
     @DeleteMapping("/vaccines/{id}")
     public ResponseEntity<String> deleteVaccineById(@PathVariable Long id) {
         String response = service.deleteVaccine(id);
-        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }
