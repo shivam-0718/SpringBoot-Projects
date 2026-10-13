@@ -23,8 +23,7 @@ public class VaccineRequest {
     @Digits(integer = 10, fraction = 2, message = "Cost is allowed up to 10 digits and 2 decimal places.")
     private BigDecimal cost;
 
-    @PositiveOrZero
-    @NotBlank(message = "Available doses should be greater than or equal to zero.")
+    @PositiveOrZero(message = "Available doses should be greater than or equal to zero.")
     private int availableDoses;
 
     @Size(min = 2, max = 20)
