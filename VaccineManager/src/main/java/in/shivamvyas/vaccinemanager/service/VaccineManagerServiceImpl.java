@@ -5,6 +5,7 @@ import in.shivamvyas.vaccinemanager.dto.VaccineRequest;
 import in.shivamvyas.vaccinemanager.dto.VaccineResponse;
 import in.shivamvyas.vaccinemanager.entity.Vaccine;
 import in.shivamvyas.vaccinemanager.exception.VaccineNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -13,11 +14,15 @@ import java.util.Optional;
 
 @Service
 public class VaccineManagerServiceImpl implements VaccineManagerService{
-
-    @Autowired
     private VaccineManagerRepo vaccineRepo;
 
+    @Autowired
+    public void setVaccineRepo(VaccineManagerRepo vaccineRepo) {
+        this.vaccineRepo = vaccineRepo;
+    }
+
     @Override
+    @Transactional
     public VaccineResponse registerVaccine(VaccineRequest request) {
         Vaccine entity = requestToEntity(request);
         Vaccine savedVaccine = vaccineRepo.save(entity);
@@ -37,6 +42,7 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
     }
 
     @Override
+    @Transactional
     public VaccineResponse updateVaccineDetails(Long id, VaccineRequest request) {
         Optional<Vaccine> optional = vaccineRepo.findById(id);
         if(optional.isPresent()) {
@@ -56,6 +62,7 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
     }
 
     @Override
+    @Transactional
     public String deleteVaccine(Long id) {
         Optional<Vaccine> optional = vaccineRepo.findById(id);
         if(optional.isPresent()) {
