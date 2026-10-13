@@ -73,6 +73,16 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
         throw new VaccineNotFoundException("Vaccine with given id is not available. Try again with correct vaccine id.");
     }
 
+    @Override
+    public VaccineResponse getVaccineById(Long id) {
+        Optional<Vaccine> optional = vaccineRepo.findById(id);
+        if(optional.isPresent()) {
+            Vaccine fetchedVaccine = optional.get();
+            return entityToResponse(fetchedVaccine);
+        }
+        throw new VaccineNotFoundException("Vaccine with id " + id + " is not available. Try again with correct id.");
+    }
+
     /**
      * Private helper method to convert VaccineRequest DTO to Vaccine Entity for persistence in the DB
      * @return Vaccine

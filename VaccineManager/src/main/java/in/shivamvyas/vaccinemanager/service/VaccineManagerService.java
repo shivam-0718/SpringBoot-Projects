@@ -10,4 +10,6 @@ public interface VaccineManagerService {
     List<VaccineResponse> fetchVaccines();
     VaccineResponse updateVaccineDetails(Long id, VaccineRequest request);
     String deleteVaccine(Long id);
+
+    VaccineResponse getVaccineById(Long id);
 }
