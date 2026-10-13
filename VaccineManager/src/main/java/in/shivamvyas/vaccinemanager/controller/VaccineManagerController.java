@@ -51,4 +51,30 @@ public class VaccineManagerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/bulk")
+    public ResponseEntity<List<VaccineResponse>> registerVaccines(@RequestBody List<@Valid VaccineRequest> vaccineRequests) {
+        List<VaccineResponse> responseList = service.registerVaccines(vaccineRequests);
+        return new ResponseEntity<>(responseList, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list/{vaccineName}")
+    public ResponseEntity<List<VaccineResponse>> vaccinesByVaccineName(@PathVariable String vaccineName) {
+        List<VaccineResponse> vaccinesList = service.searchByVaccineName(vaccineName);
+        return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<VaccineResponse>> vaccinesByVaccineCompany(@RequestParam String vaccineCompany) {
+        List<VaccineResponse> vaccinesList = service.searchByVaccineCompany(vaccineCompany);
+        return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<VaccineResponse>> vaccinesByAvailableDoses(@RequestParam int minDoses, @RequestParam int maxDoses) {
+        List<VaccineResponse> vaccinesList = service.searchByAvailableDosesBetween(minDoses, maxDoses);
+        return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
+    }
+
+
+
 }
