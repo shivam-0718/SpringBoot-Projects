@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/vaccines")
@@ -88,5 +91,31 @@ public class VaccineManagerController {
         return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
     }
 
+    @GetMapping(params = "threshold")
+    public ResponseEntity<List<VaccineResponse>> vaccinesWithLowStock(@RequestParam int threshold) {
+        List<VaccineResponse> lowStockVaccines = service.findVaccinesWithLowStock(threshold);
+        return new ResponseEntity<>(lowStockVaccines, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "disease")
+    public ResponseEntity<List<VaccineResponse>> vaccinesEffectiveAgainstDisease(@RequestParam String disease) {
+        List<VaccineResponse> lowStockVaccines = service.searchByDisease(disease);
+        return new ResponseEntity<>(lowStockVaccines, HttpStatus.OK);
+    }
+
+    @GetMapping("/stats/average-cost")
+    public ResponseEntity<Map<String, BigDecimal>> averageCost() {
+        Map<String, BigDecimal> averageCost = new HashMap<>();
+        averageCost.put("averageCost", service.averageCost());
+        return new ResponseEntity<>(averageCost, HttpStatus.OK);
+    }
+
+    @PatchMapping(params = {"vaccineName"})
+    public ResponseEntity<Map<String, Integer>> updateCostByVaccineName(@RequestBody BigDecimal newCost, @RequestParam String vaccineName) {
+        Map<String, Integer> updatedRecords = new HashMap<>();
+        int updatedRows = service.updateVaccineCostByVaccineName(newCost, vaccineName);
+        updatedRecords.put("updatedCount", updatedRows);
+        return new ResponseEntity<>(updatedRecords, HttpStatus.OK);
+    }
 
 }
