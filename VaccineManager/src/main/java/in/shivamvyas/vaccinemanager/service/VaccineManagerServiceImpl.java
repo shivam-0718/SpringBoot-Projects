@@ -5,6 +5,7 @@ import in.shivamvyas.vaccinemanager.dto.VaccineRequest;
 import in.shivamvyas.vaccinemanager.dto.VaccineResponse;
 import in.shivamvyas.vaccinemanager.entity.Vaccine;
 import in.shivamvyas.vaccinemanager.exception.VaccineNotFoundException;
+import in.shivamvyas.vaccinemanager.view.View;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -149,6 +150,16 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
         }
 
         return fetchedVaccines;
+    }
+
+    @Override
+    public <T extends View> List<T> searchByVaccineNameContainingIgnoreCase(String vaccineName, Class<T> type) {
+        return vaccineRepo.findByVaccineNameContainingIgnoreCase(vaccineName, type);
+    }
+
+    @Override
+    public <T extends View> List<T> searchByVaccineCompanyContainingIgnoreCase(String vaccineCompany, Class<T> type) {
+        return vaccineRepo.findByVaccineCompanyContainingIgnoreCase(vaccineCompany, type);
     }
 
     /**
