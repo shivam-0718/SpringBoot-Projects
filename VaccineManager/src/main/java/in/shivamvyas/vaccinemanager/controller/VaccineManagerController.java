@@ -3,6 +3,7 @@ package in.shivamvyas.vaccinemanager.controller;
 import in.shivamvyas.vaccinemanager.dto.VaccineRequest;
 import in.shivamvyas.vaccinemanager.dto.VaccineResponse;
 import in.shivamvyas.vaccinemanager.service.VaccineManagerService;
+import in.shivamvyas.vaccinemanager.view.ResultView1;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,24 +58,35 @@ public class VaccineManagerController {
         return new ResponseEntity<>(responseList, HttpStatus.CREATED);
     }
 
-    @GetMapping("/list/{vaccineName}")
-    public ResponseEntity<List<VaccineResponse>> vaccinesByVaccineName(@PathVariable String vaccineName) {
+    @GetMapping(params = "vaccineName")
+    public ResponseEntity<List<VaccineResponse>> vaccinesByVaccineName(@RequestParam String vaccineName) {
         List<VaccineResponse> vaccinesList = service.searchByVaccineName(vaccineName);
         return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping(params = "vaccineCompany")
     public ResponseEntity<List<VaccineResponse>> vaccinesByVaccineCompany(@RequestParam String vaccineCompany) {
         List<VaccineResponse> vaccinesList = service.searchByVaccineCompany(vaccineCompany);
         return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping(params = {"minDoses", "maxDoses"})
     public ResponseEntity<List<VaccineResponse>> vaccinesByAvailableDoses(@RequestParam int minDoses, @RequestParam int maxDoses) {
         List<VaccineResponse> vaccinesList = service.searchByAvailableDosesBetween(minDoses, maxDoses);
         return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
     }
 
+    @GetMapping(params = {"vaccineName", "view=summary"})
+    public ResponseEntity<List<ResultView1>> vaccinesByVaccinesName(@RequestParam String vaccineName) {
+        List<ResultView1> vaccinesList = service.searchByVaccineNameContainingIgnoreCase(vaccineName, ResultView1.class);
+        return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
+    }
+
+    @GetMapping(params = {"vaccineCompany", "view=summary"})
+    public ResponseEntity<List<ResultView1>> vaccinesByVaccineCompanyName(@RequestParam String vaccineCompany) {
+        List<ResultView1> vaccinesList = service.searchByVaccineCompanyContainingIgnoreCase(vaccineCompany, ResultView1.class);
+        return new ResponseEntity<>(vaccinesList, HttpStatus.OK);
+    }
 
 
 }
