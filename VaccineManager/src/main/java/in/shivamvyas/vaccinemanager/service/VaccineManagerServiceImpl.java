@@ -162,6 +162,41 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
         return vaccineRepo.findByVaccineCompanyContainingIgnoreCase(vaccineCompany, type);
     }
 
+    @Override
+    public int updateVaccineCostByVaccineName(BigDecimal newCost, String vaccineName) {
+        int updatedRecords = vaccineRepo.updateCostByVaccineName(newCost, vaccineName);
+        return Math.max(updatedRecords, 0);
+    }
+
+    @Override
+    public List<VaccineResponse> findVaccinesWithLowStock(int threshold) {
+        List<Vaccine> vaccinesList = vaccineRepo.findLowStock(threshold);
+        List<VaccineResponse> lowStockVaccines = new ArrayList<>();
+
+        for(Vaccine v : vaccinesList) {
+            lowStockVaccines.add(entityToResponse(v));
+        }
+
+        return lowStockVaccines;
+    }
+
+    @Override
+    public List<VaccineResponse> searchByDisease(String disease) {
+        List<Vaccine> vaccinesList = vaccineRepo.searchByDisease(disease);
+        List<VaccineResponse> vaccinesForDisease = new ArrayList<>();
+
+        for(Vaccine v : vaccinesList) {
+            vaccinesForDisease.add(entityToResponse(v));
+        }
+
+        return vaccinesForDisease;
+    }
+
+    @Override
+    public BigDecimal averageCost() {
+        return vaccineRepo.averageCost();
+    }
+
     /**
      * Private helper method to convert VaccineRequest DTO to Vaccine Entity for persistence in the DB
      * @return Vaccine

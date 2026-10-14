@@ -3,7 +3,6 @@ package in.shivamvyas.vaccinemanager.service;
 import in.shivamvyas.vaccinemanager.dto.VaccineRequest;
 import in.shivamvyas.vaccinemanager.dto.VaccineResponse;
 import in.shivamvyas.vaccinemanager.view.View;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -22,4 +21,8 @@ public interface VaccineManagerService {
 
     <T extends View> List<T> searchByVaccineNameContainingIgnoreCase(String vaccineName, Class<T> type);
     <T extends View> List<T> searchByVaccineCompanyContainingIgnoreCase(String vaccineCompany, Class<T> type);
+    int updateVaccineCostByVaccineName(BigDecimal newCost, String vaccineName);
+    List<VaccineResponse> findVaccinesWithLowStock(int threshold);
+    List<VaccineResponse> searchByDisease(String disease);
+    BigDecimal averageCost();
 }
