@@ -24,7 +24,6 @@ public class VaccineManagerController {
         this.service = service;
     }
 
-    // endpoint for registering a Vaccine
     @PostMapping
     public ResponseEntity<VaccineResponse> registerVaccine(@Valid @RequestBody VaccineRequest request) {
         VaccineResponse response = service.registerVaccine(request);
@@ -106,7 +105,7 @@ public class VaccineManagerController {
     @GetMapping("/stats/average-cost")
     public ResponseEntity<Map<String, BigDecimal>> averageCost() {
         Map<String, BigDecimal> averageCost = new HashMap<>();
-        averageCost.put("averageCost", service.averageCost());
+        averageCost.put("averageCost", service.findTheAverageCost());
         return new ResponseEntity<>(averageCost, HttpStatus.OK);
     }
 

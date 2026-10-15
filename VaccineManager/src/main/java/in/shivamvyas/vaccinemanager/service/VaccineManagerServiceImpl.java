@@ -44,7 +44,7 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
     }
 
     @Override
-    @Transactional
+    @Transactional // as this change has an impact on DB, so either do it fully or DO NOT do it.
     public VaccineResponse updateVaccineDetails(Long id, VaccineRequest request) {
         Optional<Vaccine> optional = vaccineRepo.findById(id);
         if(optional.isPresent()) {
@@ -193,7 +193,7 @@ public class VaccineManagerServiceImpl implements VaccineManagerService{
     }
 
     @Override
-    public BigDecimal averageCost() {
+    public BigDecimal findTheAverageCost() {
         return vaccineRepo.averageCost();
     }
 

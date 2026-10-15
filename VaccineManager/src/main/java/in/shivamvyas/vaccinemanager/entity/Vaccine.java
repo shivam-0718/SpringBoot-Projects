@@ -30,6 +30,10 @@ public class Vaccine {
     @Column(name = "Vaccine_Company")
     private String vaccineCompany;
 
+    /**
+     * BigDecimal is used for money because it does exact decimal arithmetic (float/double give rounding errors).
+     * precision = 12 -> total digits, scale = 2 -> digits after the decimal point (DECIMAL(12,2) in the DB).
+     */
     @Column(name = "Cost_INR", nullable = false, precision = 12, scale = 2)
     private BigDecimal cost;
 

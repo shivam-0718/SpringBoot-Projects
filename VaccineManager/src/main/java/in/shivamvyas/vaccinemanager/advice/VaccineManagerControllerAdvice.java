@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +23,10 @@ public class VaccineManagerControllerAdvice {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // this handler will be used for the exceptions raised only when the issue arises due to invalidated parameter
+    /**
+     * Thrown when a single @Valid @RequestBody object fails bean validation (e.g. VaccineRequest).
+     * Returns 400 with a field name -> validation message map.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentValidationException(MethodArgumentNotValidException mave) {
         Map<String, String> errors = new HashMap<>();
@@ -38,7 +40,11 @@ public class VaccineManagerControllerAdvice {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    // this handler will be used for the exceptions raised only when the request is passed in a Data Structure
+    /**
+     * Thrown by Spring's method-level validation (Spring 6.1+) when constraints sit on method parameters or on
+     * container elements, e.g. List<@Valid VaccineRequest> in the bulk endpoint (a plain @Valid on the List does
+     * not validate its elements). Not handled by MethodArgumentNotValidException. Returns 400 with parameter -> message.
+     */
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<Map<String, String>> handlingHandlerMethodValidation(HandlerMethodValidationException hmve) {
         Map<String, String> errors = new HashMap<>();
