@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// A DTO for the air quality part of the provider's current weather
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)

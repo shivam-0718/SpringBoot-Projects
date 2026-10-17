@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 import java.time.Duration;
 
+// Binds and validates the weather.api.* settings from application.properties
 @Validated
 @Getter
 @Setter
@@ -20,5 +21,5 @@ public class WeatherApiProperties {
     private String key;
 
     @NotNull
-    private Duration timeOut;
+    private Duration timeout;
 }

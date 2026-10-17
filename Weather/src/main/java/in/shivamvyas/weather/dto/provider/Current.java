@@ -19,7 +19,7 @@ public class Current {
     @JsonProperty("wind_kph")
     private double windKmph;
 
-    @JsonIgnoreProperties("wind_dir")
+    @JsonProperty("wind_dir")
     private String windDir;
 
     private int humidity;

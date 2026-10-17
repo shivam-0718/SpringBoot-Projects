@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// The weather response our API returns to clients (null fields are omitted)
 @Data
 @Builder
 @NoArgsConstructor

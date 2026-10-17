@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// A DTO for the weather description (text and icon) from the provider
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
